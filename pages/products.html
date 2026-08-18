@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sabe Software — Productos</title>
+  <link rel="stylesheet" href="/logic/css/styles.css">
+  <link rel="stylesheet" href="/logic/css/custom.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <!-- Encabezado de página -->
+    <section class="relative pt-32 pb-20 bg-slate-900 overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.18),transparent_60%)]"></div>
+      <div class="relative z-10 container mx-auto px-4 md:px-8 text-center">
+        <span data-field="products_eyebrow" class="inline-block text-purple-400 text-sm font-semibold tracking-widest uppercase mb-3"></span>
+        <h1 data-field="products_title" class="text-4xl md:text-5xl font-extrabold text-white mb-6"></h1>
+        <p data-field="products_subtitle" class="text-lg text-slate-400 max-w-2xl mx-auto"></p>
+      </div>
+    </section>
+
+    <!-- Productos -->
+    <section class="relative py-24 bg-slate-950 overflow-hidden">
+      <div class="relative z-10 container mx-auto px-4 md:px-8">
+        <div data-products="full" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/logic/js/loader.js" defer></script>
+  <script src="/logic/js/data.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* ==== Modern Design Tokens ==== */
+:root {
+  --clr-primary: #4361ee;
+  --clr-primary-dark: #3a56d1;
+  --clr-accent: #00c9a7;
+  --clr-bg-gradient: linear-gradient(125deg, #6a1b9a, #283593, #1a237e);
+  --clr-text-primary: #1f2937;
+  --clr-text-muted: #6b7280;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.12);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.15);
+  --transition: all 0.3s ease;
+}
+
+/* ==== Base ==== */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--clr-text-primary);
+}
+
+/* ==== Typography ==== */
+h1, h2, h3 { font-weight: 600; line-height: 1.2; }
+
+/* ==== Links ==== */
+.nav-link {
+  color: var(--clr-text-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.nav-link:hover { color: var(--clr-primary); }
+
+/* ==== Glassmorphism ==== */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* ==== Shadows & Elevation ==== */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* ==== Buttons ==== */
+.btn {
+  display: inline-block;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: var(--clr-primary);
+  color: #fff;
+}
+.btn-primary:hover { background-color: var(--clr-primary-dark); }
+
+/* ==== Accent ==== */
+.accent { color: var(--clr-accent); }
+.accent:hover { text-decoration: underline; }
+
+/* ==== Animations ==== */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gradient-pulse {
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* ==== Fade‑in ==== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn .6s ease-out forwards; }
+
+/* ==== Pop hover ==== */
+.pop {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.pop:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+/* ==== Lottie container ==== */
+.lottie-container { width:200px; height:200px; }
+.lottie-player { width:100%; height:100%; border-radius:12px; }
+
+/* ==== Modern Card ==== */
+.card {
+  background: rgba(255,255,255,.15);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  transition: all .3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.15);
+}
+
+/* ==== Neon outline ==== */
+.neon-outline {
+  border: 2px solid transparent;
+  mask: linear-gradient(to bottom, #000 100%, #000 100%) content-box,
+        linear-gradient(to top, #000 0%, #000 0%) padding-box;
+  -webkit-mask-image: linear-gradient(to bottom, #000 100%, #000 100%);
+  mask-composite: add;
+  transition: all .3s ease;
+}
+.neon-outline:hover {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 12px rgba(0, 201, 165,.6);
+}
+
+/* ==== Pulse animation ==== */
+@keyframes neonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+.neon-pulse { animation: neonPulse 2s infinite; }
+
+/* ==== Smooth scroll ==== */
+html { scroll-behavior: smooth; }

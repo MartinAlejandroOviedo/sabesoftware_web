@@ -1,0 +1,103 @@
+/* ============================================================
+   custom.css — Aporta utilidades propias; NO pisa clases de Tailwind.
+   Se carga antes de Tailwind para que sus utilidades tengan prioridad
+   sobre este archivo en caso de coincidencia.
+   ============================================================ */
+
+:root {
+  --primary: #6366f1;
+  --accent: #ec4899;
+}
+
+/* ==== Base tipográfica ==== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==== Fade-in (usado en el hero) ==== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn .6s ease-out forwards;
+}
+
+/* ==== Grid de fondo decorativo (hero) ==== */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+}
+
+/* ==== Blobs flotantes (hero) ==== */
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, -40px) scale(1.1); }
+  66%      { transform: translate(-20px, 20px) scale(0.95); }
+}
+.blob {
+  animation: blobFloat 12s ease-in-out infinite;
+}
+.blob-delay {
+  animation-delay: 6s;
+}
+
+/* ==== Tarjeta con efecto vidrio (stats del hero) ==== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .3s ease, background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
+}
+
+/* ==== Tarjetas de features (about / contact) ==== */
+.feature-card {
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(129, 140, 248, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+}
+
+/* ==== Tarjetas de producto (products) ==== */
+.product-card {
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(129, 140, 248, 0.4);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, .45);
+}
+
+/* ==== Estado "scrolled" del header fijo ==== */
+#site-header.scrolled {
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+}
+
+/* ==== Enlace activo en la navegación ==== */
+#header a.nav-active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
+}

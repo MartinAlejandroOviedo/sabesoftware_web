@@ -1,0 +1,12 @@
+/* logic/css/styles.css — reset base mínimo.
+   El layout y los colores los maneja Tailwind (head.html).
+   Evitamos estilos globales sobre header/footer/nav para no pisar el diseño. */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
