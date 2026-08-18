@@ -44,8 +44,8 @@
         ? `<ul class="space-y-3 mb-8 text-sm text-slate-300">${features}</ul>`
         : '';
       const cta = full
-        ? `<a href="/contact" class="inline-flex items-center gap-2 w-full justify-center ${a.btn} text-white font-semibold py-3 rounded-xl transition-all hover:-translate-y-0.5">Solicitar demo <i class="fas fa-arrow-right text-sm"></i></a>`
-        : `<a href="/products" class="inline-flex items-center gap-2 w-full justify-center ${a.btn} text-white font-semibold py-3 rounded-xl transition-all hover:-translate-y-0.5">Más información <i class="fas fa-arrow-right text-sm"></i></a>`;
+        ? `<a href="/products/${p.slug}" class="inline-flex items-center gap-2 w-full justify-center ${a.btn} text-white font-semibold py-3 rounded-xl transition-all hover:-translate-y-0.5">Ver detalles <i class="fas fa-arrow-right text-sm"></i></a>`
+        : `<a href="/products/${p.slug}" class="inline-flex items-center gap-2 w-full justify-center ${a.btn} text-white font-semibold py-3 rounded-xl transition-all hover:-translate-y-0.5">Ver detalles <i class="fas fa-arrow-right text-sm"></i></a>`;
       return `
         <div class="product-card relative rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-8 overflow-hidden">
           <div class="absolute -top-16 -right-16 w-40 h-40 ${a.glow} rounded-full blur-3xl"></div>

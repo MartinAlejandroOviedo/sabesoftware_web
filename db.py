@@ -9,6 +9,7 @@ SCHEMA = """
 CREATE TABLE IF NOT EXISTS products (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT NOT NULL,
+    slug        TEXT NOT NULL UNIQUE,
     description TEXT NOT NULL,
     icon        TEXT NOT NULL,
     accent      TEXT NOT NULL,
@@ -45,15 +46,15 @@ CREATE TABLE IF NOT EXISTS site (
 """
 
 PRODUCTS = [
-    ("Sabe Backup",
+    ("Sabe Backup", "sabe-backup",
      "Backup automático para archivos y bases de datos, con programación inteligente y restauración en un clic.",
      "fas fa-database", "indigo",
      ["Copias programadas", "Cifrado de datos", "Restauración instantánea"]),
-    ("Sabe Sync",
+    ("Sabe Sync", "sabe-sync",
      "Sincroniza archivos entre Windows y Linux en tiempo real, sin fricciones y con control total de versiones.",
      "fas fa-sync-alt", "purple",
      ["Sincronización en tiempo real", "Historial de versiones", "Multiplataforma"]),
-    ("Sabe Analyzer",
+    ("Sabe Analyzer", "sabe-analyzer",
      "Análisis y monitoreo de rendimiento en tiempo real, con reportes claros para tomar mejores decisiones.",
      "fas fa-chart-line", "pink",
      ["Monitoreo en vivo", "Reportes inteligentes", "Alertas proactivas"]),
@@ -141,10 +142,10 @@ def init_db():
 
 
 def _seed_products(conn):
-    for i, (name, desc, icon, accent, features) in enumerate(PRODUCTS):
+    for i, (name, slug, desc, icon, accent, features) in enumerate(PRODUCTS):
         cur = conn.execute(
-            "INSERT INTO products (name, description, icon, accent, sort_order) VALUES (?,?,?,?,?)",
-            (name, desc, icon, accent, i),
+            "INSERT INTO products (name, slug, description, icon, accent, sort_order) VALUES (?,?,?,?,?,?)",
+            (name, slug, desc, icon, accent, i),
         )
         product_id = cur.lastrowid
         for j, label in enumerate(features):
@@ -180,7 +181,7 @@ def get_products():
     try:
         products = []
         for row in conn.execute(
-            "SELECT id, name, description, icon, accent FROM products ORDER BY sort_order, id"
+            "SELECT id, name, slug, description, icon, accent FROM products ORDER BY sort_order, id"
         ):
             features = [
                 f["label"]
@@ -192,12 +193,42 @@ def get_products():
             products.append({
                 "id": row["id"],
                 "name": row["name"],
+                "slug": row["slug"],
                 "description": row["description"],
                 "icon": row["icon"],
                 "accent": row["accent"],
                 "features": features,
             })
         return products
+    finally:
+        conn.close()
+
+
+def get_product_by_slug(slug):
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            "SELECT id, name, slug, description, icon, accent FROM products WHERE slug = ?",
+            (slug,)
+        ).fetchone()
+        if not row:
+            return None
+        features = [
+            f["label"]
+            for f in conn.execute(
+                "SELECT label FROM product_features WHERE product_id=? ORDER BY sort_order, id",
+                (row["id"],),
+            )
+        ]
+        return {
+            "id": row["id"],
+            "name": row["name"],
+            "slug": row["slug"],
+            "description": row["description"],
+            "icon": row["icon"],
+            "accent": row["accent"],
+            "features": features,
+        }
     finally:
         conn.close()
 

@@ -26,13 +26,28 @@ class Handler(SimpleHTTPRequestHandler):
         if path.startswith('/api/'):
             self.serve_api(path)
             return
+        # Rutas limpias para páginas estáticas
         target = CLEAN_ROUTES.get(path)
         if target:
             self.path = target + (('?' + parsed.query) if parsed.query else '')
+            super().do_GET()
+            return
+        # Rutas dinámicas: /products/<slug> -> detalle de producto
+        if path.startswith('/products/') and path != '/products':
+            slug = path.split('/')[-1]
+            self.path = f'/pages/product-detail.html?slug={slug}'
+            super().do_GET()
+            return
         super().do_GET()
 
     def serve_api(self, path):
         route = path[len('/api/'):].strip('/')
+        # Endpoint para producto individual: /api/products/<slug>
+        if route.startswith('products/'):
+            slug = route.split('/')[-1]
+            if slug:
+                self.send_json(db.get_product_by_slug(slug))
+                return
         routes = {
             'products': db.get_products,
             'values': db.get_value_cards,
